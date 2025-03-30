@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block header_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Portfolio Stats -->
+<div class="row mb-4">
+    <!-- Portfolio ROI -->
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Portfolio ROI</h6>
+                <div class="d-flex align-items-center">
+                    <h3 class="card-title mb-0">{{ portfolio.roi }}%</h3>
+                    <span class="ms-2 up-trend">
+                        <i class="fas fa-arrow-up"></i> 1.2%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Open Contracts -->
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Open contracts</h6>
+                <div class="d-flex align-items-center">
+                    <h3 class="card-title mb-0">$ {{ portfolio.total_value }}M
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Investments -->
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Active investments
+                </h6>
+                <div class="d-flex align-items-center">
+                    <h3 class="card-title mb-0">{{ portfolio.active_investments
+                        }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Table -->
+<div class="card">
+    <div class="card-header">
+        <h5 class="mb-0">Portfolio</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">CONTRACT NUMBER</th>
+                        <th scope="col">REQUEST DATE</th>
+                        <th scope="col">STATUS</th>
+                        <th scope="col">DUE DATE</th>
+                        <th scope="col">DAYS UNTIL PAYMENT</th>
+                        <th scope="col">AMOUNT</th>
+                        <th scope="col">INTEREST</th>
+                        <th scope="col">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in portfolio.contract_data %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.contract_number }}</td>
+                        <td>{{ item.request_date }}</td>
+                        <td>
+                            {% if item.status == 'Waiting approval' %}
+                            <span
+                                class="status-badge status-pending">Processing</span>
+                            {% elif item.status == 'Denied' %}
+                            <span
+                                class="status-badge status-denied">Denied</span>
+                            {% elif item.status == 'Closed' %}
+                            <span
+                                class="status-badge status-closed">Closed</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ item.due_date }}</td>
+                        <td>{{ item.days_until_payment }}</td>
+                        <td>${{ item.amount }}</td>
+                        <td>${{ (item.amount * 0.05)|round(2) }}</td>
+                        <td>
+                            <a href="#" class="text-primary">View</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-3">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1"
+                        aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add any dashboard-specific JavaScript here
+    $(document).ready(function () {
+        // Example: Update charts or refresh data periodically
+        console.log("Dashboard initialized");
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,396 @@
+{% extends "base.html" %}
+
+{% block title %}AI Assistant{% endblock %}
+
+{% block header_title %}AI Assistant{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Left Column - AI Chat -->
+    <div class="col-md-8">
+        <!-- Financial Metrics Cards -->
+        <div class="row mb-4">
+            <!-- Cash Balance -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Cash Balance
+                        </h6>
+                        <h3 class="card-title">${{
+                            "%.3f"|format(recommendations.financial_metrics.cash_balance)
+                            }}M</h3>
+                        <p class="card-text">
+                            {% if
+                            recommendations.financial_metrics.cash_balance_change
+                            < 0 %} <span class="down-trend">
+                                <i class="fas fa-arrow-down"></i> {{
+                                recommendations.financial_metrics.cash_balance_change
+                                }}%
+                                </span>
+                                {% else %}
+                                <span class="up-trend">
+                                    <i class="fas fa-arrow-up"></i> {{
+                                    recommendations.financial_metrics.cash_balance_change
+                                    }}%
+                                </span>
+                                {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projected Revenue -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Projected
+                            revenues</h6>
+                        <h3 class="card-title">${{
+                            "%.3f"|format(recommendations.financial_metrics.projected_revenues)
+                            }}M</h3>
+                        <p class="card-text">
+                            {% if
+                            recommendations.financial_metrics.revenue_change < 0
+                                %} <span class="down-trend">
+                                <i class="fas fa-arrow-down"></i> {{
+                                recommendations.financial_metrics.revenue_change
+                                }}%
+                                </span>
+                                {% else %}
+                                <span class="up-trend">
+                                    <i class="fas fa-arrow-up"></i> {{
+                                    recommendations.financial_metrics.revenue_change
+                                    }}%
+                                </span>
+                                {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expected Net Cash -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-muted">Expected Net
+                            Cash</h6>
+                        <h3 class="card-title">${{
+                            "%.3f"|format(recommendations.financial_metrics.expected_net_cash)
+                            }}M</h3>
+                        <p class="card-text">
+                            {% if
+                            recommendations.financial_metrics.net_cash_change <
+                                0 %} <span class="down-trend">
+                                <i class="fas fa-arrow-down"></i> {{
+                                recommendations.financial_metrics.net_cash_change
+                                }}%
+                                </span>
+                                {% else %}
+                                <span class="up-trend">
+                                    <i class="fas fa-arrow-up"></i> {{
+                                    recommendations.financial_metrics.net_cash_change
+                                    }}%
+                                </span>
+                                {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# Add this to your index.html template where the AI recommendations
+        section is #}
+
+        <!-- AI Recommendations Section -->
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center">
+                <div class="me-2 bg-primary rounded-circle"
+                    style="width: 12px; height: 12px;"></div>
+                <h5 class="mb-0">AI recommendations</h5>
+            </div>
+            <div class="card-body">
+                <!-- This container will be updated dynamically with recommendations -->
+                <div id="aiRecommendationsContainer">
+                    {% for rec in recommendations.recommendations %}
+                    <div class="card recommendation-card {{ rec.type }} mb-3">
+                        <div class="card-body">
+                            <div
+                                class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    {% if rec.type == 'cash_flow' %}
+                                    <i
+                                        class="fas fa-chart-line text-primary mb-2"></i>
+                                    {% elif rec.type == 'revenue' %}
+                                    <i
+                                        class="fas fa-dollar-sign text-success mb-2"></i>
+                                    {% elif rec.type == 'payment' %}
+                                    <i
+                                        class="fas fa-exclamation-circle text-warning mb-2"></i>
+                                    {% endif %}
+                                    <h5 class="card-title">{{ rec.title }}</h5>
+                                    <p class="card-text">{{ rec.description }}
+                                    </p>
+                                </div>
+                                <div class="text-end">
+                                    {% if rec.potential %}
+                                    <div class="mb-2 text-success">+${{
+                                        rec.potential }}</div>
+                                    {% endif %}
+                                    {% if rec.due_date %}
+                                    <div class="mb-2 text-warning">Due: {{
+                                        rec.due_date }}</div>
+                                    {% endif %}
+                                    <button class="btn btn-primary btn-sm">{{
+                                        rec.action }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {# And update your chat interface section to ensure it has the right IDs
+        #}
+
+        <!-- Chat Interface -->
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-primary me-2">+ New
+                        chat</button>
+                    <div class="ms-2">
+                        <i class="fas fa-search text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body chat-container p-0">
+                <div class="chat-messages p-3" id="chatMessages">
+                    <div class="message ai">
+                        <div class="message-content">
+                            <p>Hello! I'm your financial assistant. I can help
+                                you analyze your business data, optimize cash
+                                flow, and find new financial opportunities. What
+                                would you like to know today?</p>
+                        </div>
+                    </div>
+                    <!-- Chat messages will be added here dynamically -->
+                </div>
+                <div class="chat-input p-3">
+                    <form id="chatForm">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                id="messageInput"
+                                placeholder="Message your AI assistant">
+                            <button class="btn btn-outline-secondary"
+                                type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-primary me-2">+ New
+                        chat</button>
+                    <div class="ms-2">
+                        <i class="fas fa-search text-muted"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body chat-container p-0">
+                <div class="chat-messages p-3" id="chatMessages">
+                    <div class="message ai">
+                        <div class="message-content">
+                            <p>Hello! I'm your financial assistant. I can help
+                                you analyze your business data, optimize cash
+                                flow, and find new financial opportunities. What
+                                would you like to know today?</p>
+                        </div>
+                    </div>
+                    <!-- Chat messages will be added here dynamically -->
+                </div>
+                <div class="chat-input p-3">
+                    <form id="chatForm">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                id="messageInput"
+                                placeholder="Message your AI assistant">
+                            <button class="btn btn-outline-secondary"
+                                type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column - Recent Chats & Suggestions -->
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Today</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-file-invoice text-muted me-3"></i>
+                        <span>Upcoming payments for ABC</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-money-bill-wave text-muted me-3"></i>
+                        <span>Cash flow optimization for next month</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-building text-muted me-3"></i>
+                        <span>Supplier ABC analysis</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Previous 7 days</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-chart-pie text-muted me-3"></i>
+                        <span>Costs analysis</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-industry text-muted me-3"></i>
+                        <span>New machine impact on cash</span>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-question-circle text-muted me-3"></i>
+                        <span>How can you help me?</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Cuara's financial agents at your disposal</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-question-circle me-2"></i>
+                        <p class="mb-0 fst-italic">"How can I optimize my
+                            business cashflow?"</p>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fas fa-chart-line me-2"></i>
+                        <p class="mb-0 fst-italic">"What expenses are increasing
+                            the most this month?"</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-dollar-sign me-2"></i>
+                        <p class="mb-0 fst-italic">"Predict my financial status
+                            in 30 days?"</p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" class="form-control"
+                        placeholder="Message your AI assistant">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Simple chat functionality for the demo
+    $(document).ready(function () {
+        const chatForm = $('#chatForm');
+        const messageInput = $('#messageInput');
+        const chatMessages = $('#chatMessages');
+
+        chatForm.on('submit', function (e) {
+            e.preventDefault();
+
+            const message = messageInput.val().trim();
+            if (!message) return;
+
+            // Add user message to chat
+            appendMessage('user', message);
+
+            // Clear input
+            messageInput.val('');
+
+            // Simulate AI response (in a real app, this would call the backend)
+            simulateTyping();
+        });
+
+        function appendMessage(sender, content) {
+            const messageClass = sender === 'user' ? 'message user' : 'message ai';
+            const messageHTML = `
+                <div class="${messageClass}">
+                    <div class="message-content">
+                        <p>${content}</p>
+                    </div>
+                </div>
+            `;
+
+            chatMessages.append(messageHTML);
+
+            // Scroll to bottom
+            chatMessages.scrollTop(chatMessages[0].scrollHeight);
+        }
+
+        function simulateTyping() {
+            // Add typing indicator
+            const typingHTML = `
+                <div class="message ai typing">
+                    <div class="message-content">
+                        <p>Thinking<span class="typing-dots">...</span></p>
+                    </div>
+                </div>
+            `;
+
+            chatMessages.append(typingHTML);
+            chatMessages.scrollTop(chatMessages[0].scrollHeight);
+
+            // Simulate API call delay
+            setTimeout(function () {
+                // Remove typing indicator
+                $('.typing').remove();
+
+                // Get AI response based on user input
+                const userMessage = $('.message.user').last().find('p').text().toLowerCase();
+                let aiResponse = '';
+
+                if (userMessage.includes('cashflow') || userMessage.includes('cash flow')) {
+                    aiResponse = "Based on your current financial data, I recommend optimizing your cash flow by invoicing clients earlier. Your accounts receivable are currently at 60 days on average, which is quite high. Reducing this to 45 days could improve your cash position by approximately 25%.";
+                } else if (userMessage.includes('expenses')) {
+                    aiResponse = "Your highest increasing expenses this month are marketing costs (up 12%) and software subscriptions (up 8%). I recommend reviewing your SaaS subscriptions for any unused services that could be cancelled.";
+                } else if (userMessage.includes('predict') || userMessage.includes('forecast')) {
+                    aiResponse = "Based on your current trends, in 30 days your financial position is projected to improve by 5.2%. Your cash reserves should increase to approximately $10.92M with sustained revenue growth at 3.8% monthly.";
+                } else {
+                    aiResponse = "I can help analyze your financial data and provide recommendations for optimizing cash flow, managing expenses, and forecasting future performance. What specific aspect of your finances would you like to explore?";
+                }
+
+                // Add AI response
+                appendMessage('ai', aiResponse);
+            }, 1500);
+        }
+    });
+</script>
+{% endblock %}
