@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 import requests  # For AI service API calls
 
 # Import our data generator
-from financial_data_generator import ChileanSMEFinancialDataGenerator
+from financial_data_model import ChileanSMEFinancialDataGenerator
 
 app = Flask(__name__)
 
