@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}Financing Request{% endblock %}
+
+{% block header_title %}Financing request #{{ request_id }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <!-- Progress Indicator -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between position-relative">
+                    <!-- Progress Line -->
+                    <div class="position-absolute"
+                        style="top: 50%; height: 2px; width: 80%; left: 10%; background-color: #e5e7eb; transform: translateY(-50%);">
+                    </div>
+
+                    <!-- Step 1: Creation -->
+                    <div
+                        class="d-flex flex-column align-items-center position-relative">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; z-index: 1;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="mt-2">Creation</span>
+                    </div>
+
+                    <!-- Step 2: Lender proposals -->
+                    <div
+                        class="d-flex flex-column align-items-center position-relative">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; z-index: 1;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="mt-2">Lender proposals</span>
+                    </div>
+
+                    <!-- Step 3: Selection -->
+                    <div
+                        class="d-flex flex-column align-items-center position-relative">
+                        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; z-index: 1;">
+                            1
+                        </div>
+                        <span class="mt-2">Selection</span>
+                    </div>
+
+                    <!-- Step 4: Active Contract -->
+                    <div
+                        class="d-flex flex-column align-items-center position-relative">
+                        <div class="rounded-circle bg-light text-muted d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; z-index: 1; border: 2px solid #e5e7eb;">
+                            2
+                        </div>
+                        <span class="mt-2 text-muted">Active Contract</span>
+                    </div>
+
+                    <!-- Step 5: Finished -->
+                    <div
+                        class="d-flex flex-column align-items-center position-relative">
+                        <div class="rounded-circle bg-light text-muted d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; z-index: 1; border: 2px solid #e5e7eb;">
+                            3
+                        </div>
+                        <span class="mt-2 text-muted">Finished</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Company Info Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h5>Company Info</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="amount" class="form-label">Amount
+                            needed</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control"
+                                id="amount" value="9000">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="creation-date" class="form-label">Creation
+                            date</label>
+                        <input type="date" class="form-control"
+                            id="creation-date" value="2023-10-30">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Purpose Section -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <h5>Why Do You Need the Money?</h5>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="purpose"
+                        id="pay-invoice" checked>
+                    <label class="form-check-label" for="pay-invoice">
+                        Pay an invoice
+                    </label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="purpose"
+                        id="inventory">
+                    <label class="form-check-label" for="inventory">
+                        Purchase inventory
+                    </label>
+                </div>
+                <div class="form-check mb-2">
+                    <input class="form-check-input" type="radio" name="purpose"
+                        id="equipment">
+                    <label class="form-check-label" for="equipment">
+                        Buy equipment
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="purpose"
+                        id="other-purpose">
+                    <label class="form-check-label" for="other-purpose">
+                        Other
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5>When Do You Need the Money?</h5>
+                <div class="form-group">
+                    <select class="form-select">
+                        <option selected>1-2 weeks</option>
+                        <option>2-4 weeks</option>
+                        <option>1-2 months</option>
+                        <option>3+ months</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lender Proposals Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h5>Lender proposals</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="lending-type" class="form-label">Lending
+                            type</label>
+                        <select class="form-select" id="lending-type">
+                            <option>Factoring</option>
+                            <option selected>Loan</option>
+                            <option>Credit line</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="rate" class="form-label">Rate</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="rate"
+                                value="6">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="duration"
+                            class="form-label">Duration</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control"
+                                id="duration" value="120">
+                            <span class="input-group-text">days</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="number-of-payments"
+                            class="form-label">Number of payments</label>
+                        <input type="number" class="form-control"
+                            id="number-of-payments" value="4">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proposals Table -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th>LENDER TYPE</th>
+                            <th>RATE</th>
+                            <th>DURATION</th>
+                            <th>AMOUNT</th>
+                            <th>RETURN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Factoring</td>
+                            <td>4%</td>
+                            <td>90 days</td>
+                            <td>$ 9,000</td>
+                            <td>$ 360</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row">
+            <div class="col-12 text-end">
+                <button class="btn btn-outline-secondary me-2">Cancel</button>
+                <button class="btn btn-primary">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

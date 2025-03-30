@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}Plug-in Store{% endblock %}
+
+{% block header_title %}Plug-in store{% endblock %}
+
+{% block content %}
+<!-- Search Bar -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="input-group">
+            <span class="input-group-text bg-white">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="text" class="form-control" placeholder="Search for integrations...">
+            <button class="btn btn-dark" type="button">New</button>
+            <button class="btn btn-outline-secondary" type="button">All plug-ins</button>
+        </div>
+    </div>
+</div>
+
+<!-- Email Integrations -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h5 class="mb-3">Email Integration</h5>
+        <div class="row">
+            <!-- Email Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">Email Integration</h5>
+                                <p class="card-text text-muted small">Connect to access your email</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Google Sheets Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-table text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">Google Sheets Integration</h5>
+                                <p class="card-text text-muted small">Connect to access your sheets</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Speech-to-Text Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-microphone text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">Speech-to-Text (STT)</h5>
+                                <p class="card-text text-muted small">Connect for hands-free data entry</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Finance Integrations -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h5 class="mb-3">Finance Integrations</h5>
+        <div class="row">
+            <!-- Slack Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-danger bg-opacity-10 p-3 rounded me-3">
+                                <i class="fab fa-slack text-danger"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">Slack</h5>
+                                <p class="card-text text-muted small">Connect to your Slack account to receive updates</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Factorit Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-warning bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-file-invoice-dollar text-warning"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">Factorit</h5>
+                                <p class="card-text text-muted small">Connect to your Factorit account to handle invoices</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- QuickBooks Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-success bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-book text-success"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">QuickBooks</h5>
+                                <p class="card-text text-muted small">Connect to your QuickBooks account for enhanced reporting</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Communication Integrations -->
+<div class="row">
+    <div class="col-md-12">
+        <h5 class="mb-3">Communication</h5>
+        <div class="row">
+            <!-- Outlook Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">Outlook</h5>
+                                <p class="card-text text-muted small">Connect to your Outlook account and sync contacts</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gmail Integration Card -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-danger bg-opacity-10 p-3 rounded me-3">
+                                <i class="fab fa-google text-danger"></i>
+                            </div>
+                            <div>
+                                <h5 class="card-title mb-0">Gmail</h5>
+                                <p class="card-text text-muted small">Connect to your Gmail account and sync contacts</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary w-100">Connect</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

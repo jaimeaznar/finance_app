@@ -1,0 +1,76 @@
+{# Add this to your index.html template where the AI recommendations section is #}
+
+<!-- AI Recommendations Section -->
+<div class="card mb-4">
+    <div class="card-header d-flex align-items-center">
+        <div class="me-2 bg-primary rounded-circle" style="width: 12px; height: 12px;"></div>
+        <h5 class="mb-0">AI recommendations</h5>
+    </div>
+    <div class="card-body">
+        <!-- This container will be updated dynamically with recommendations -->
+        <div id="aiRecommendationsContainer">
+            {% for rec in recommendations.recommendations %}
+            <div class="card recommendation-card {{ rec.type }} mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            {% if rec.type == 'cash_flow' %}
+                            <i class="fas fa-chart-line text-primary mb-2"></i>
+                            {% elif rec.type == 'revenue' %}
+                            <i class="fas fa-dollar-sign text-success mb-2"></i>
+                            {% elif rec.type == 'payment' %}
+                            <i class="fas fa-exclamation-circle text-warning mb-2"></i>
+                            {% endif %}
+                            <h5 class="card-title">{{ rec.title }}</h5>
+                            <p class="card-text">{{ rec.description }}</p>
+                        </div>
+                        <div class="text-end">
+                            {% if rec.potential %}
+                            <div class="mb-2 text-success">+${{ rec.potential }}</div>
+                            {% endif %}
+                            {% if rec.due_date %}
+                            <div class="mb-2 text-warning">Due: {{ rec.due_date }}</div>
+                            {% endif %}
+                            <button class="btn btn-primary btn-sm">{{ rec.action }}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{# And update your chat interface section to ensure it has the right IDs #}
+
+<!-- Chat Interface -->
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center">
+            <button class="btn btn-sm btn-primary me-2">+ New chat</button>
+            <div class="ms-2">
+                <i class="fas fa-search text-muted"></i>
+            </div>
+        </div>
+    </div>
+    <div class="card-body chat-container p-0">
+        <div class="chat-messages p-3" id="chatMessages">
+            <div class="message ai">
+                <div class="message-content">
+                    <p>Hello! I'm your financial assistant. I can help you analyze your business data, optimize cash flow, and find new financial opportunities. What would you like to know today?</p>
+                </div>
+            </div>
+            <!-- Chat messages will be added here dynamically -->
+        </div>
+        <div class="chat-input p-3">
+            <form id="chatForm">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="messageInput" placeholder="Message your AI assistant">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
