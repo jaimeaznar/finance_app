@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="row">
-    <!-- Left Column - AI Chat -->
+    <!-- Left Column - Financial Dashboard -->
     <div class="col-md-8">
         <!-- Financial Metrics Cards -->
         <div class="row mb-4">
@@ -98,9 +98,6 @@
             </div>
         </div>
 
-        {# Add this to your index.html template where the AI recommendations
-        section is #}
-
         <!-- AI Recommendations Section -->
         <div class="card mb-4">
             <div class="card-header d-flex align-items-center">
@@ -150,91 +147,47 @@
                 </div>
             </div>
         </div>
-
-        {# And update your chat interface section to ensure it has the right IDs
-        #}
-
-        <!-- Chat Interface -->
-        <div class="card">
-            <div class="card-header">
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-sm btn-primary me-2">+ New
-                        chat</button>
-                    <div class="ms-2">
-                        <i class="fas fa-search text-muted"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body chat-container p-0">
-                <div class="chat-messages p-3" id="chatMessages">
-                    <div class="message ai">
-                        <div class="message-content">
-                            <p>Hello! I'm your financial assistant. I can help
-                                you analyze your business data, optimize cash
-                                flow, and find new financial opportunities. What
-                                would you like to know today?</p>
-                        </div>
-                    </div>
-                    <!-- Chat messages will be added here dynamically -->
-                </div>
-                <div class="chat-input p-3">
-                    <form id="chatForm">
-                        <div class="input-group">
-                            <input type="text" class="form-control"
-                                id="messageInput"
-                                placeholder="Message your AI assistant">
-                            <button class="btn btn-outline-secondary"
-                                type="submit">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Chat Interface -->
-        <div class="card">
-            <div class="card-header">
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-sm btn-primary me-2">+ New
-                        chat</button>
-                    <div class="ms-2">
-                        <i class="fas fa-search text-muted"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body chat-container p-0">
-                <div class="chat-messages p-3" id="chatMessages">
-                    <div class="message ai">
-                        <div class="message-content">
-                            <p>Hello! I'm your financial assistant. I can help
-                                you analyze your business data, optimize cash
-                                flow, and find new financial opportunities. What
-                                would you like to know today?</p>
-                        </div>
-                    </div>
-                    <!-- Chat messages will be added here dynamically -->
-                </div>
-                <div class="chat-input p-3">
-                    <form id="chatForm">
-                        <div class="input-group">
-                            <input type="text" class="form-control"
-                                id="messageInput"
-                                placeholder="Message your AI assistant">
-                            <button class="btn btn-outline-secondary"
-                                type="submit">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <!-- Right Column - Recent Chats & Suggestions -->
+    <!-- Right Column - AI Chat -->
     <div class="col-md-4">
+        <!-- Chat Interface -->
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center">
+                <div class="me-2">
+                    <i class="fas fa-comments text-primary"></i>
+                </div>
+                <h5 class="mb-0">AI Assistant</h5>
+            </div>
+            <div class="card-body chat-container p-0" style="height: 400px;">
+                <div class="chat-messages p-3" id="chatMessages">
+                    <div class="message ai">
+                        <div class="message-content">
+                            <p>Hello! I'm your financial assistant. I can help
+                                you analyze your business data, optimize cash
+                                flow, and find new financial opportunities. What
+                                would you like to know today?</p>
+                        </div>
+                    </div>
+                    <!-- Chat messages will be added here dynamically -->
+                </div>
+                <div class="chat-input p-3 border-top">
+                    <form id="chatForm">
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                id="messageInput"
+                                placeholder="Message your AI assistant">
+                            <button class="btn btn-outline-primary"
+                                type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Today's Activities -->
         <div class="card mb-4">
             <div class="card-header">
                 <h5 class="mb-0">Today</h5>
@@ -257,6 +210,7 @@
             </div>
         </div>
 
+        <!-- Previous Activities -->
         <div class="card mb-4">
             <div class="card-header">
                 <h5 class="mb-0">Previous 7 days</h5>
@@ -279,35 +233,31 @@
             </div>
         </div>
 
+        <!-- Suggested Questions -->
         <div class="card">
             <div class="card-header">
                 <h5 class="mb-0">Cuara's financial agents at your disposal</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">
-                    <div class="d-flex align-items-center mb-2">
+                    <div class="d-flex align-items-center mb-2 suggestion-question"
+                        style="cursor: pointer;">
                         <i class="fas fa-question-circle me-2"></i>
                         <p class="mb-0 fst-italic">"How can I optimize my
                             business cashflow?"</p>
                     </div>
-                    <div class="d-flex align-items-center mb-2">
+                    <div class="d-flex align-items-center mb-2 suggestion-question"
+                        style="cursor: pointer;">
                         <i class="fas fa-chart-line me-2"></i>
                         <p class="mb-0 fst-italic">"What expenses are increasing
                             the most this month?"</p>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center suggestion-question"
+                        style="cursor: pointer;">
                         <i class="fas fa-dollar-sign me-2"></i>
                         <p class="mb-0 fst-italic">"Predict my financial status
                             in 30 days?"</p>
                     </div>
-                </div>
-
-                <div class="input-group">
-                    <input type="text" class="form-control"
-                        placeholder="Message your AI assistant">
-                    <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -316,9 +266,17 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 <script>
     // Simple chat functionality for the demo
     $(document).ready(function () {
+        // Setup suggestion questions to be clickable
+        $('.suggestion-question').on('click', function () {
+            const questionText = $(this).find('p').text().trim();
+            $('#messageInput').val(questionText);
+            $('#chatForm').submit();
+        });
+
         const chatForm = $('#chatForm');
         const messageInput = $('#messageInput');
         const chatMessages = $('#chatMessages');
